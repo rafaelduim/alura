@@ -1,23 +1,36 @@
-// Responsável pela interação com o usuário
-// Tipo Element = Elemento do DOM da página
-// Tipo HTMLInputElement = Elemento do DOM da página correspondente ao input
-class NegociacaoController {
-    constructor() {
-        this._negociacoes = new Negociacoes();
-        this._negociacoesView = new NegociacoesView("#negociacoesView");
-        this._mensagemView = new MensagemView("#mensagemView");
-        this._inputData = document.querySelector("#data");
-        this._inputQuantidade = document.querySelector("#quantidade");
-        this._inputValor = document.querySelector("#valor");
-        this._negociacoesView.update(this._negociacoes);
-    }
-    // Adicionando um evento ao um método
-    adiciona(event) {
-        event.preventDefault();
-        const negociacao = new Negociacao(new Date(this._inputData.value.replace(/-/g, ',')), // o Date só aceita yyyy,mm,dd - replate todos os locais que tiver - para ,
-        parseInt(this._inputQuantidade.value), parseFloat(this._inputValor.value));
-        this._negociacoes.adiciona(negociacao);
-        this._negociacoesView.update(this._negociacoes);
-        this._mensagemView.update('Negociação adicionada com sucesso');
-    }
-}
+System.register(["../models/index", "../views/index"], function (exports_1, context_1) {
+    "use strict";
+    var index_1, index_2, NegociacaoController;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [
+            function (index_1_1) {
+                index_1 = index_1_1;
+            },
+            function (index_2_1) {
+                index_2 = index_2_1;
+            }
+        ],
+        execute: function () {
+            NegociacaoController = class NegociacaoController {
+                constructor() {
+                    this._negociacoes = new index_1.Negociacoes();
+                    this._negociacoesView = new index_2.NegociacoesView("#negociacoesView", true);
+                    this._mensagemView = new index_2.MensagemView("#mensagemView", true);
+                    this._inputData = $("#data");
+                    this._inputQuantidade = $("#quantidade");
+                    this._inputValor = $("#valor");
+                    this._negociacoesView.update(this._negociacoes);
+                }
+                adiciona(event) {
+                    event.preventDefault();
+                    const negociacao = new index_1.Negociacao(new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
+                    this._negociacoes.adiciona(negociacao);
+                    this._negociacoesView.update(this._negociacoes);
+                    this._mensagemView.update('Negociação adicionada com sucesso');
+                }
+            };
+            exports_1("NegociacaoController", NegociacaoController);
+        }
+    };
+});

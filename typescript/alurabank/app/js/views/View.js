@@ -1,12 +1,25 @@
-class View {
-    constructor(_seletor) {
-        this._seletor = _seletor;
-        this._elemento = document.querySelector(_seletor);
-    }
-    template(modal) {
-        throw new Error("Você deve implementar o método template");
-    }
-    update(model) {
-        this._elemento.innerHTML = this.template(model);
-    }
-}
+System.register([], function (exports_1, context_1) {
+    "use strict";
+    var View;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [],
+        execute: function () {
+            View = class View {
+                constructor(_seletor, escapar) {
+                    this._seletor = _seletor;
+                    this._elemento = $(_seletor);
+                    this._escapar = escapar;
+                }
+                update(model) {
+                    let template = this.template(model);
+                    if (this._escapar) {
+                        template = template.replace(/<script>[\s\S]*?<\/script>/g, '');
+                    }
+                    this._elemento.html(template);
+                }
+            };
+            exports_1("View", View);
+        }
+    };
+});
