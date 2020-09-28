@@ -7,3 +7,4 @@ const controller = new NegociacaoController();
 //     .addEventListener("submit", controller.adiciona.bind(controller)); //.bind para manter o this dentro do controller
 
 $(".form").submit(controller.adiciona.bind(controller));
+$("#botao-importa").click(controller.importaDados.bind(controller));
